@@ -4,6 +4,7 @@ function init() {
 
   // Use the list of sample names to populate the select options
   d3.json("samples.json").then((data) => {
+    console.log('Init Function');
     var sampleNames = data.names;
 
     sampleNames.forEach((sample) => {
@@ -33,6 +34,7 @@ function optionChanged(newSample) {
 // Demographics Panel 
 function buildMetadata(sample) {
   d3.json("samples.json").then((data) => {
+    console.log('buildMetadata Function');
     var metadata = data.metadata;
     // Filter the data for the object with the desired sample number
     var resultArray = metadata.filter(sampleObj => sampleObj.id == sample);
@@ -57,7 +59,11 @@ function buildMetadata(sample) {
 function buildCharts(sample) {
   // 2. Use d3.json to load and retrieve the samples.json file 
   d3.json("samples.json").then((data) => {
-    // 3. Create a variable that holds the samples array. 
+    console.log('buildCharts Function');
+    console.log(data);
+    // 3. Create a variable that holds the samples array.
+    var sampleArray = data.samples;
+    console.log(sampleArray);
 
     // 4. Create a variable that filters the samples for the object with the desired sample number.
 
@@ -71,14 +77,14 @@ function buildCharts(sample) {
     // Hint: Get the the top 10 otu_ids and map them in descending order  
     //  so the otu_ids with the most bacteria are last. 
 
-    var yticks = 
+    var yticks = 1
 
     // 8. Create the trace for the bar chart. 
-    var barData = [
+    var barData = [1
       
     ];
     // 9. Create the layout for the bar chart. 
-    var barLayout = {
+    var barLayout = {1: '1'
      
     };
     // 10. Use Plotly to plot the data with the layout. 
