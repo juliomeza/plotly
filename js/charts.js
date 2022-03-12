@@ -57,35 +57,30 @@ function buildMetadata(sample) {
 function buildCharts(sample) {
   // 2. Use d3.json to load and retrieve the samples.json file 
   d3.json("data/samples.json").then((data) => {
-    //console.log(data);
+    
     // 3. Create a variable that holds the samples array.
     var sampleSamples = data.samples;
-    //console.log(sampleSamples);
-
+    
     // 4. Create a variable that filters the samples for the object with the desired sample number.
     var resultArray = sampleSamples.filter(sampleObj => sampleObj.id == sample);
-    //console.log(resultArray);
-
+    
     //  5. Create a variable that holds the first sample in the array.
     var result = resultArray[0];
-    // console.log(result)
-
+    
     // 6. Create variables that hold the otu_ids, otu_labels, and sample_values.
     var otu_ids = result.otu_ids;
     var otu_labels = result.otu_labels;
     var sample_values = result.sample_values;
 
-    //////////////////// ALL GOOD UNTIL HERE ////////////////////
-
     // 7. Create the yticks for the bar chart
     // Hint: Get the the top 10 otu_ids and map them in descending order  
     // so the otu_ids with the most bacteria are last
-    var yticks = otu_ids.map(y => 'OTU ' + y);
+    otu_ids_text = otu_ids.map(y => 'OTU ' + y);
 
     // 8. Create the trace for the bar chart
     var barData = [{
       x: sample_values.slice(0,10).reverse(),
-      y: yticks.slice(0,10).reverse(),
+      y: otu_ids_text.slice(0,10).reverse(),
       hovertext: otu_labels.slice(0,10).reverse(),
       hoverinfo: "text",
       type: 'bar',
@@ -98,5 +93,34 @@ function buildCharts(sample) {
     };
     // 10. Use Plotly to plot the data with the layout
     Plotly.newPlot('bar', barData, barLayout);
+
+
+
+    // BUBBLE CHART
+
+    // 1. Create the trace for the bubble chart.
+    var bubbleData = [{
+      x: otu_ids,
+      y: sample_values,
+      hovertext: otu_labels,
+      mode: 'markers',
+      marker: {
+        color: otu_ids,
+        size: sample_values
+      }
+
+    }];
+
+    // 2. Create the layout for the bubble chart.
+    var bubbleLayout = {
+      hovermode:'closest',
+      title: "Bacterial Cultures Per Sample"
+    };
+
+    // 3. Use Plotly to plot the data with the layout.
+    Plotly.newPlot('bubble', bubbleData, bubbleLayout);
+
+
+
   });
 }
