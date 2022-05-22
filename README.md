@@ -9,3 +9,6 @@ Belly Button Biodiversity Dashboard.
 
 
 <img src="https://github.com/juliomeza/plotly/blob/main/screenshot/Plotly.png">
+
+## Summary
+This dashboard can be used with different types of datasets.
